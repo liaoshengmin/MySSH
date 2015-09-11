@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+	<constant name="struts.multipart.maxSize" value="1000000" />
+	<constant name="struts.multipart.saveDir" value="/tmp" />
+
+	<package name="test" namespace="/" extends="struts-default,json-default">
+
+		<interceptors>
+			<interceptor name="myinterceptor" class="com.Interceptor.MyInterceptor" />
+			<interceptor-stack name="basicStack">
+				<interceptor-ref name="myinterceptor" />
+				<interceptor-ref name="defaultStack" />
+
+			</interceptor-stack>
+		</interceptors>
+
+
+		<action name="show" class="com.action.ShowAction" method="show">
+			<result type="json">
+
+				<param name="root">data</param>
+			</result>
+		</action>
+
+		<action name="getAddress" class="com.action.GetAddressAction"
+			method="getAddress">
+			<result type="json">
+				<param name="root">list</param>
+			</result>
+		</action>
+
+		<action name="login" class="com.action.LoginAction" method="login">
+			<result name="success">/WEB-INF/jsp/index.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+
+		<action name="*_*" class="com.action.{1}Action" method="{2}">
+		    <interceptor-ref name="basicStack" />
+			<result name="success">/WEB-INF/jsp/index.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="add">/WEB-INF/jsp/add.jsp</result>
+		</action>
+
+
+
+	</package>
+</struts>
+
+<!-- <action name="*_*" class="com.action.{1}" method="{2}"> -->
+<!-- <result name="success">/WEB-INF/jsp/success.jsp</result> -->
+<!-- </action> -->

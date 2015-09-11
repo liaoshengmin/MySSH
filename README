@@ -1,0 +1,8 @@
+﻿mvn clean
+mvn compile
+mvn tomcat:run
+
+在src/main/resources下的dbconfig.properties内设置数据库账号密码
+
+
+浏览器输入网址：http://localhost:8080/MySSH/login.jsp
